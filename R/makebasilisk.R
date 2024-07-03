@@ -21,7 +21,7 @@ vvec = c(
 "cffi==1.16.0",
 "charset_normalizer==3.3.2",
 "colorama==0.4.6",
-"dateutil==2.9.0",
+"python-dateutil==2.9.0",
 "dill==0.3.8",
 "exceptiongroup==1.2.0",
 "filelock==3.15.4",
@@ -50,16 +50,16 @@ vvec = c(
 "requests==2.32.3",
 "scipy==1.13.1",
 "six==1.16.0",
-"socks==1.7.1",
+"python-socks==2.5.0",
 "sympy==1.12.1",
 "threadpoolctl==3.5.0",
-"torch==2.1.2+cu121",
+"torch==2.1.2",
 "torchgen==0.0.1",
 "tqdm==4.66.4",
 "typing_extensions==4.12.2",
 "urllib3==2.2.2",
 "xxhash==3.4.1",
-"yaml==6.0.1",
+"pyyaml==6.0.1",
 "yarl==1.9.4")
 
 gfenv = basilisk::BasiliskEnvironment(
