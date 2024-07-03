@@ -9,3 +9,20 @@ getgf()
 \description{
 tickle basilisk installation
 }
+\note{
+Intent is to hand back a python reference, not endorsed in basilisk.
+Use better insulation in production.
+}
+\examples{
+if (interactive()) {
+ cur = getwd()
+ td = tempdir()
+ setwd(td)
+ download.file(panc_tok_zip_url(), "panc_hfds.zip")
+ unzip("panc_hfds.zip")
+ ds = getgf()
+ ref = ds$load_from_disk("panc_hfds/tbyr.dataset")
+ print(ref)
+ setwd(cur)
+}
+}
