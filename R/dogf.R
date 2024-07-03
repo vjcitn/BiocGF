@@ -38,6 +38,11 @@ getgf = function() {
 panc_tok_zip_url = function()
 "https://mghp.osn.xsede.org/bir190004-bucket01/BiocGFdata/panc_hfds.zip"
 
+#' give URL for 'loom' file for pancreas data
+#' @export
+panc_loom_url = function()
+"https://mghp.osn.xsede.org/bir190004-bucket01/BiocGFdata/pancreas_scib.loom"
+
 #' retrieve or place a zipfile with tokenization dataset for Grun/Muraro's pancreas study in BiocFileCache
 #' @import BiocFileCache
 #' @note A loom file was distributed at
@@ -70,3 +75,33 @@ get_gf_python = function() {
   dd
   })
 }
+
+#' retrieve or place a loom file for Grun/Muraro's pancreas study in BiocFileCache
+#' @import BiocFileCache
+#' @note A loom file was distributed at
+#' \url{https://figshare.com/articles/dataset/Data_used_for_demo_of_the_code_accompanying_the_i_Assessing_the_limits_of_zero-shot_foundation_models_in_single-cell_biology_i_paper_/24747228} under
+#' data/datasets/geneformer/pancreas_scib.  The relevant publication
+#' seems to be
+#'  \url{https://pubmed.ncbi.nlm.nih.gov/27345837/}, GSE81076, etc.
+#' @return character path to loom file
+#' @examples
+#' pa = get_panc_loom_path()
+#' proc = basilisk::basiliskStart(BiocGF:::gfenv)
+#' x = basilisk::basiliskRun(proc, function() {
+#'  anndata::read_loom(pa)
+#' })
+#' basilisk::basiliskStop(proc)
+#' x
+#' @export
+get_panc_loom_path = function(cache = BiocFileCache::BiocFileCache()) {
+  src = panc_loom_url()
+  q = BiocFileCache::bfcquery(cache, "pancreas_scib.loom")
+  nans = nrow(q)
+  if (nans >= 1) {
+    q = q[nans,]
+    return(q$rpath)  # quietly return last
+    }
+  p = BiocFileCache::bfcadd(cache, rname=src,
+    action="copy", download=TRUE)
+  p
+  }
