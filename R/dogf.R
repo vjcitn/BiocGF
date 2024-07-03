@@ -16,9 +16,9 @@
 #'  cur = getwd()
 #'  td = tempdir()
 #'  setwd(td)
-#'  download.file(panc_tok_zip_url(), "panc_hfds.zip")
-#'  unzip("panc_hfds.zip")
-#'  ds = getgf()
+#'  pa = get_panc_tok_path()
+#'  unzip(pa)  # destination = "."
+#'  ds = getgf() # get python module
 #'  ref = ds$load_from_disk("panc_hfds/tbyr.dataset")
 #'  print(ref)
 #'  setwd(cur)
