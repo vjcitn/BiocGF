@@ -1,6 +1,6 @@
 Package: BiocGF
 Version: 0.0.0
-Title: interface to geneformer
+Title: interface to geneformer, uses Msoft data
 Description: interface to geneformer
 Authors@R: 
 	c(person(given="Vince", family="Carey", 
