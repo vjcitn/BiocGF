@@ -60,3 +60,13 @@ get_panc_tok_path = function(cache = BiocFileCache::BiocFileCache()) {
   p
   }
   
+#' use import_from_python in reticulate to get the geneformer modules
+#' @export
+get_gf_python = function() {
+ proc = basilisk::basiliskStart(gfenv)
+ on.exit(basilisk::basiliskStop(proc))
+ basilisk::basiliskRun(proc, function() {
+  dd = reticulate::import_from_path("geneformer", path=system.file("python", "Geneformer", package="BiocGF"))
+  dd
+  })
+}
