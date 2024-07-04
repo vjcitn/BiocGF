@@ -6,7 +6,7 @@ Authors@R:
 	c(person(given="Vince", family="Carey", 
         email="stvjc@channing.harvard.edu",
         role=c("cre", "aut")))
-Imports: basilisk
+Imports: basilisk, BiocFileCache, reticulate
 Depends: R (>= 4.3.0)
 StagedInstall: no
 RoxygenNote: 7.3.2
