@@ -56,7 +56,30 @@ basilisk::basiliskStop(proc)
 pancloom
 ```
 
-## Tokenizing the loom content
+## Tokenizing the loom RNA-seq content
+
+The following call is time-consuming and is
+not evaluated.
+
+```{r tokcall,eval=FALSE}
+tt = gf_tokenize_loom( panc_path )
+```
+
+A serialized version of the tokenization output
+is available for this dataset.
+
+```{r lktok}
+cur = getwd()
+td = tempdir()
+setwd(td)
+pa = get_panc_tok_path()
+unzip(pa)  # destination = "."
+ds = getgf() # get python module
+ref = ds$load_from_disk("panc_hfds/tbyr.dataset")
+print(ref)
+setwd(cur)
+```
+
 
 
 
