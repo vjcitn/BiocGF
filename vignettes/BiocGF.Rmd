@@ -12,18 +12,21 @@ output:
     number_sections: yes
     theme: united
     toc: yes
+bibliography: biocgf.bib
+csl: acm-siggraph.csl
 ---
 
 # Introduction
 
 Geneformer is described in a Nature paper
 entitled [Transfer learning enables predictions
-in network biology](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10949956/).
+in network biology](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10949956/)
+@Theodoris2023.
 The abstract concludes: "Overall, Geneformer represents a pretrained deep learning model from which fine-tuning towards a broad range of downstream applications can be pursued to accelerate discovery of key network regulators and candidate therapeutic targets."
 
 Software resources related to the model are available at huggingface.co.
 
-A preprint with critical content is [Kedzierska et al.](https://www.biorxiv.org/content/10.1101/2023.10.16.561085v2).  This package collects tools
+A preprint with critical content is [Kedzierska et al.](https://www.biorxiv.org/content/10.1101/2023.10.16.561085v2) @Kedzierska2023.  This package collects tools
 and information related to both of these papers.
 
 # Package resources
@@ -37,4 +40,24 @@ with BiocGF.
 
 The Kedzierska paper includes a figshare link to a loom
 file representing quantifications of single-cell RNA-seq
-analyses of pancreas tissue.
+analyses of pancreas tissue @grun2016.
+
+This code chunk uses basilisk to hand back a python
+reference.  This should be converted to SingleCellExperiment
+in the chunk, before handing back to R.
+```{r chkdat, message=FALSE}
+library(BiocGF)
+panc_path = get_panc_loom_path()
+proc = basilisk::basiliskStart(BiocGF:::gfenv)
+pancloom = basilisk::basiliskRun(proc, function() {
+ anndata::read_loom(panc_path)
+})
+basilisk::basiliskStop(proc)
+pancloom
+```
+
+## Tokenizing the loom content
+
+
+
+# References

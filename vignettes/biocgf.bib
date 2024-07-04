@@ -1,0 +1,42 @@
+@article{Theodoris2023,
+   abstract = {Mapping gene networks requires large amounts of transcriptomic data to learn the connections between genes, which impedes discoveries in settings with limited data, including rare diseases and diseases affecting clinically inaccessible tissues. Recently, transfer learning has revolutionized fields such as natural language understanding1,2 and computer vision3 by leveraging deep learning models pretrained on large-scale general datasets that can then be fine-tuned towards a vast array of downstream tasks with limited task-specific data. Here, we developed a context-aware, attention-based deep learning model, Geneformer, pretrained on a large-scale corpus of about 30 million single-cell transcriptomes to enable context-specific predictions in settings with limited data in network biology. During pretraining, Geneformer gained a fundamental understanding of network dynamics, encoding network hierarchy in the attention weights of the model in a completely self-supervised manner. Fine-tuning towards a diverse panel of downstream tasks relevant to chromatin and network dynamics using limited task-specific data demonstrated that Geneformer consistently boosted predictive accuracy. Applied to disease modelling with limited patient data, Geneformer identified candidate therapeutic targets for cardiomyopathy. Overall, Geneformer represents a pretrained deep learning model from which fine-tuning towards a broad range of downstream applications can be pursued to accelerate discovery of key network regulators and candidate therapeutic targets.},
+   author = {Christina V. Theodoris and Ling Xiao and Anant Chopra and Mark D. Chaffin and Zeina R. Al Sayed and Matthew C. Hill and Helene Mantineo and Elizabeth M. Brydon and Zexian Zeng and X. Shirley Liu and Patrick T. Ellinor},
+   doi = {10.1038/s41586-023-06139-9},
+   issn = {14764687},
+   issue = {7965},
+   journal = {Nature},
+   month = {6},
+   pages = {616-624},
+   pmid = {37258680},
+   publisher = {Nature Research},
+   title = {Transfer learning enables predictions in network biology},
+   volume = {618},
+   year = {2023},
+}
+
+@article{grun2016,
+   author = {Dominic Grün and Mauro J. Muraro and Jean Charles Boisset and Kay Wiebrands and Anna Lyubimova and Gitanjali Dharmadhikari and Maaike van den Born and Johan van Es and Erik Jansen and Hans Clevers and Eelco J.P. de Koning and Alexander van Oudenaarden},
+   doi = {10.1016/j.stem.2016.05.010},
+   issn = {18759777},
+   issue = {2},
+   journal = {Cell Stem Cell},
+   pages = {266-277},
+   pmid = {27345837},
+   title = {De Novo Prediction of Stem Cell Identity using Single-Cell Transcriptome Data},
+   volume = {19},
+   year = {2016},
+}
+
+
+@article {Kedzierska2023,
+	author = {Kedzierska, Kasia Z. and Crawford, Lorin and Amini, Ava P. and Lu, Alex X.},
+	title = {Assessing the limits of zero-shot foundation models in single-cell biology},
+	elocation-id = {2023.10.16.561085},
+	year = {2023},
+	doi = {10.1101/2023.10.16.561085},
+	publisher = {Cold Spring Harbor Laboratory},
+	abstract = {The advent and success of foundation models such as GPT has sparked growing interest in their application to single-cell biology. Models like Geneformer and scGPT have emerged with the promise of serving as versatile tools for this specialized field. However, the efficacy of these models, particularly in zero-shot settings where models are not fine-tuned but used without any further training, remains an open question, especially as practical constraints require useful models to function in settings that preclude fine-tuning (e.g., discovery settings where labels are not fully known). This paper presents a rigorous evaluation of the zero-shot performance of these proposed single-cell foundation models. We assess their utility in tasks such as cell type clustering and batch effect correction, and evaluate the generality of their pretraining objectives. Our results indicate that both Geneformer and scGPT exhibit limited reliability in zero-shot settings and often underperform compared to simpler methods. These findings serve as a cautionary note for the deployment of proposed single-cell foundation models and highlight the need for more focused research to realize their potential.2Competing Interest StatementThe authors have declared no competing interest.},
+	URL = {https://www.biorxiv.org/content/early/2023/11/05/2023.10.16.561085},
+	eprint = {https://www.biorxiv.org/content/early/2023/11/05/2023.10.16.561085.full.pdf},
+	journal = {bioRxiv}
+}
