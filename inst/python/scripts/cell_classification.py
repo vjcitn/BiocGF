@@ -3,6 +3,8 @@
 
 # MUNGED FROM BASIC SOURCES TO RUN ON JETSTREAM2 WITH LARGE DISK
 
+MODEL_DIR="/path/to/Geneformer/with/git lfs pull"
+
 # ## Geneformer Fine-Tuning for Classification of Cardiomyopathy Disease States
 
 # ### Please note that, as usual with deep learning models, we **highly** recommend tuning learning hyperparameters for all fine-tuning applications as this can significantly improve model performance. Example below uses previously optimized hyperparameters, but one can optimize hyperparameters with the argument n_hyperopt_trials=n in cc.validate() where n>0 and represents the number of trials for hyperparameter optimization.
@@ -77,7 +79,7 @@ train_valid_id_split_dict = {"attr_key": "individual",
                             "eval": eval_ids}
 
 # 6 layer Geneformer: https://huggingface.co/ctheodoris/Geneformer/blob/main/model.safetensors
-all_metrics = cc.validate(model_directory="/home/exouser/Geneformer",
+all_metrics = cc.validate(model_directory=MODEL_DIR,
                           prepared_input_data_file=f"{output_dir}/{output_prefix}_labeled_train.dataset",
                           id_class_dict_file=f"{output_dir}/{output_prefix}_id_class_dict.pkl",
                           output_directory=output_dir,
