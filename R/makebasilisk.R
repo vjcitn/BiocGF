@@ -51,6 +51,7 @@ vvec = c(
 "scipy==1.13.1",
 "six==1.16.0",
 "python-socks==2.5.0",
+"safetensors==0.4.2",
 "scanpy==1.10.2",
 "seaborn==0.13.2",
 "sympy==1.12.1",
