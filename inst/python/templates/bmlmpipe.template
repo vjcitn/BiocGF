@@ -1,0 +1,8 @@
+# run with BiocGF basilisk env
+from transformers import AutoTokenizer, BertForMaskedLM, logging
+from transformers import pipeline
+
+logging.set_verbosity_error()
+#pipeline('fill-mask', model="google-bert/bert-base-uncased")
+unmasker = pipeline('fill-mask', model="google-bert/bert-base-uncased")
+unmasker("%%ONEMASKPHRASE%%")

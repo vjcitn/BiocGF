@@ -6,6 +6,9 @@
 \usage{
 nwts_safet(fn = "model.safetensors")
 }
+\arguments{
+\item{fn}{character(1) filename defaults to model.safetensors}
+}
 \description{
 count number of weights in safetensors file
 }
