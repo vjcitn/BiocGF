@@ -6,6 +6,9 @@
 \usage{
 get_panc_tok_path(cache = BiocFileCache::BiocFileCache())
 }
+\arguments{
+\item{cache}{cache instance likely inheriting from BiocFileCache::BiocFileCache}
+}
 \value{
 character path to zip file
 }

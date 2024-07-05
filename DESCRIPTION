@@ -1,12 +1,22 @@
 Package: BiocGF
 Version: 0.0.0
 Title: interface to geneformer, uses Msoft data
-Description: interface to geneformer
+Description: This package defines interfaces to geneformer and
+	to other components of scverse and transformers.
+	A demonstrative loom file and tokenized dataset
+	are available in Open Storage Network and can be
+	retrieved using functions in this package.
+	Some functions will request large files of model
+	weights from huggingface.
 Authors@R: 
 	c(person(given="Vince", family="Carey", 
         email="stvjc@channing.harvard.edu",
         role=c("cre", "aut")))
-Imports: basilisk, BiocFileCache, reticulate
+Imports: basilisk, BiocFileCache, reticulate,
+	anndata
+Suggests: knitr, BiocStyle
 Depends: R (>= 4.3.0)
 StagedInstall: no
 RoxygenNote: 7.3.2
+License: Artistic-2.0
+VignetteBuilder: knitr

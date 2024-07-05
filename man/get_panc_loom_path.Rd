@@ -6,6 +6,9 @@
 \usage{
 get_panc_loom_path(cache = BiocFileCache::BiocFileCache())
 }
+\arguments{
+\item{cache}{instance of BiocFileCache::BiocFileCache()}
+}
 \value{
 character path to loom file
 }

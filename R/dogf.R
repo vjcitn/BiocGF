@@ -45,6 +45,7 @@ panc_loom_url = function()
 
 #' retrieve or place a zipfile with tokenization dataset for Grun/Muraro's pancreas study in BiocFileCache
 #' @import BiocFileCache
+#' @param cache cache instance likely inheriting from BiocFileCache::BiocFileCache
 #' @note A loom file was distributed at
 #' \url{https://figshare.com/articles/dataset/Data_used_for_demo_of_the_code_accompanying_the_i_Assessing_the_limits_of_zero-shot_foundation_models_in_single-cell_biology_i_paper_/24747228} under
 #' data/datasets/geneformer/pancreas_scib.  The relevant publication
@@ -77,7 +78,8 @@ get_gf_python = function() {
 }
 
 #' retrieve or place a loom file for Grun/Muraro's pancreas study in BiocFileCache
-#' @import BiocFileCache
+#' @import BiocFileCache anndata
+#' @param cache instance of BiocFileCache::BiocFileCache()
 #' @note A loom file was distributed at
 #' \url{https://figshare.com/articles/dataset/Data_used_for_demo_of_the_code_accompanying_the_i_Assessing_the_limits_of_zero-shot_foundation_models_in_single-cell_biology_i_paper_/24747228} under
 #' data/datasets/geneformer/pancreas_scib.  The relevant publication
