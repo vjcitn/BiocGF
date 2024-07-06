@@ -59,7 +59,12 @@ training_args = list(
 #' @note We pick up the Geneformer package frozen with BiocGF.
 #' `token_dictionary.pkl` must be present in working dir
 #' @export
-setup_Classifier = function(classifier,
+setup_and_run_Classifier = function(
+   input_data_file,
+   output_directory,
+   output_prefix,
+   split_id_list,
+   classifier,
    cell_state_dict,
    filter_data,
    training_args,
@@ -70,7 +75,11 @@ setup_Classifier = function(classifier,
    nproc) {
  proc = basilisk::basiliskStart(BiocGF:::gfenv)
  on.exit(basilisk::basiliskStop(proc))
- basilisk::basiliskRun(proc, function( classifier,
+ basilisk::basiliskRun(proc, function( input_data_file,
+   output_directory,
+   output_prefix,
+   split_id_list,
+   classifier,
    cell_state_dict,
    filter_data,
    training_args,
@@ -80,9 +89,11 @@ setup_Classifier = function(classifier,
    forward_batch_size,
    nproc) {
   l2rd = function(lis) reticulate::dict(lis)
+print(l2rd(filter_data))
+print(l2rd(cell_state_dict))
   dd = reticulate::import_from_path("geneformer", 
       path=system.file("python", "Geneformer", package="BiocGF"))
-  dd$Classifier( classifier=classifier,
+  cl_inst = dd$Classifier( classifier=classifier,
    cell_state_dict=l2rd(cell_state_dict),
    filter_data=l2rd(filter_data),
    training_args=l2rd(training_args),
@@ -91,7 +102,17 @@ setup_Classifier = function(classifier,
    num_crossval_splits=num_crossval_splits,
    forward_batch_size=forward_batch_size,
    nproc=nproc)
+  splid_dict = l2rd(split_id_list)
+  cl_inst$prepare_data(
+         input_data_file=input_data_file,
+                output_directory=output_dir,
+                output_prefix=output_prefix,
+                split_id_dict=splid_dict)
 }, 
+   input_data_file=input_data_file,
+   output_directory=output_directory,
+   output_prefix=output_prefix,
+   split_id_list=split_id_list,
   classifier=classifier,
    cell_state_dict=cell_state_dict,
    filter_data=filter_data,
@@ -107,37 +128,28 @@ setup_Classifier = function(classifier,
 #cl = get_Classifier()
 myd = list(state_key="disease", states="all")
 #
-cl_inst = setup_Classifier(classifier="cell", cell_state_dict=myd,
-  filter_data=filter_data_dict, training_args = training_args,
-  max_ncells=NA, freeze_layers=2L, num_crossval_splits=1L,
-  forward_batch_size=200L, nproc=24L)
 
-#cc = Classifier(classifier="cell",
-#                cell_state_dict = {"state_key": "disease", "states": "all"},
-#                filter_data=filter_data_dict,
-#                training_args=training_args,
-#                max_ncells=None,
-#                freeze_layers = 2,
-#                num_crossval_splits = 1,
-#                forward_batch_size=200,
-#                nproc=16)
+train_ids = c("1447", "1600", "1462", "1558", "1300", "1508", "1358", "1678", "1561", "1304", "1610", "1430", "1472", "1707", "1726", "1504", "1425", "1617", "1631", "1735", "1582", "1722", "1622", "1630", "1290", "1479", "1371", "1549", "1515")
+eval_ids = c("1422", "1510", "1539", "1606", "1702")
+test_ids = c("1437", "1516", "1602", "1685", "1718")
+
 #
-#
-## In[4]:
-#
-#
-## previously balanced splits with prepare_data and validate functions
-## argument attr_to_split set to "individual" and attr_to_balance set to ["disease","lvef","age","sex","length"]
-#train_ids = ["1447", "1600", "1462", "1558", "1300", "1508", "1358", "1678", "1561", "1304", "1610", "1430", "1472", "1707", "1726", "1504", "1425", "1617", "1631", "1735", "1582", "1722", "1622", "1630", "1290", "1479", "1371", "1549", "1515"]
-#eval_ids = ["1422", "1510", "1539", "1606", "1702"]
-#test_ids = ["1437", "1516", "1602", "1685", "1718"]
-#
-#train_test_id_split_dict = {"attr_key": "individual",
-#                            "train": train_ids+eval_ids,
-#                            "test": test_ids}
+train_test_id_split_list = list("attr_key"= "individual",
+                            "train"= c(train_ids,eval_ids),
+                            "test"= test_ids)
+
+cl_inst = setup_and_run_Classifier(
+  input_data_file="/media/volume/boot-vol-vince_12apr/human_dcm_hcm_nf.dataset",
+  output_directory=output_dir,
+  output_prefix=output_prefix,
+  split_id_list=train_test_id_split_list,
+  classifier="cell", cell_state_dict=myd,
+  filter_data=filter_data_dict, training_args = training_args,
+  max_ncells=600000L, freeze_layers=2L, num_crossval_splits=1L,
+  forward_batch_size=200L, nproc=24L)
 #
 ## Example input_data_file: https://huggingface.co/datasets/ctheodoris/Genecorpus-30M/tree/main/example_input_files/cell_classification/disease_classification/human_dcm_hcm_nf.dataset
-#cc.prepare_data(input_data_file="/media/volume/boot-vol-vince_12apr", #"human_dcm_hcm_nf.dataset",
+#cc.prepare_data(input_data_file="/media/volume/boot-vol-vince_12apr/human_dcm_hcm_nf.dataset",
 #                output_directory=output_dir,
 #                output_prefix=output_prefix,
 #                split_id_dict=train_test_id_split_dict)
