@@ -43,22 +43,71 @@ get_Classifier = function() {
 output_prefix = "cm_classifier_test"
 output_dir = "/media/volume/boot-vol-vince_12apr/vjcoutput2"
 
-filter_data_dict = reticulate::dict(list(cell_type = c("Cardiomyocyte1",
-          "Cardiomyocyte2", "Cardiomyocyte3")))
+filter_data_dict = list(cell_type = c("Cardiomyocyte1",
+          "Cardiomyocyte2", "Cardiomyocyte3"))
 
-training_args = reticulate::dict(list(
+training_args = list(
     "num_train_epochs"= 0.9,
     "learning_rate"= 0.000804,
     "lr_scheduler_type"= "polynomial",
     "warmup_steps"= 1812,
     "weight_decay"=0.258828,
     "per_device_train_batch_size"= 12,
-    "seed"= 73))
+    "seed"= 73)
 
-cl = get_Classifier()
-myd = reticulate::dict(list(state_key="disease", states="all"))
+#' returns instance of geneformer.Classifier
+#' @note We pick up the Geneformer package frozen with BiocGF.
+#' `token_dictionary.pkl` must be present in working dir
+#' @export
+setup_Classifier = function(classifier,
+   cell_state_dict,
+   filter_data,
+   training_args,
+   max_ncells,
+   freeze_layers,
+   num_crossval_splits,
+   forward_batch_size,
+   nproc) {
+ proc = basilisk::basiliskStart(BiocGF:::gfenv)
+ on.exit(basilisk::basiliskStop(proc))
+ basilisk::basiliskRun(proc, function( classifier,
+   cell_state_dict,
+   filter_data,
+   training_args,
+   max_ncells,
+   freeze_layers,
+   num_crossval_splits,
+   forward_batch_size,
+   nproc) {
+  l2rd = function(lis) reticulate::dict(lis)
+  dd = reticulate::import_from_path("geneformer", 
+      path=system.file("python", "Geneformer", package="BiocGF"))
+  dd$Classifier( classifier=classifier,
+   cell_state_dict=l2rd(cell_state_dict),
+   filter_data=l2rd(filter_data),
+   training_args=l2rd(training_args),
+   max_ncells=max_ncells,
+   freeze_layers=freeze_layers,
+   num_crossval_splits=num_crossval_splits,
+   forward_batch_size=forward_batch_size,
+   nproc=nproc)
+}, 
+  classifier=classifier,
+   cell_state_dict=cell_state_dict,
+   filter_data=filter_data,
+   training_args=training_args,
+   max_ncells=max_ncells,
+   freeze_layers=freeze_layers,
+   num_crossval_splits=num_crossval_splits,
+   forward_batch_size=forward_batch_size,
+   nproc=nproc)
+}
 
-cl_inst = cl(classifier="cell", cell_state_dict=myd,
+
+#cl = get_Classifier()
+myd = list(state_key="disease", states="all")
+#
+cl_inst = setup_Classifier(classifier="cell", cell_state_dict=myd,
   filter_data=filter_data_dict, training_args = training_args,
   max_ncells=NA, freeze_layers=2L, num_crossval_splits=1L,
   forward_batch_size=200L, nproc=24L)
