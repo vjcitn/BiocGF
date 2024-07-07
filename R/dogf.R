@@ -107,3 +107,14 @@ get_panc_loom_path = function(cache = BiocFileCache::BiocFileCache()) {
     action="copy", download=TRUE)
   p
   }
+
+#' return handle to huggingface datasets module
+#' @export
+get_dsref = function() {
+ proc = basilisk::basiliskStart(gfenv)
+ on.exit(basilisk::basiliskStop(proc))
+ basilisk::basiliskRun(proc, function() {
+  dd = reticulate::import("datasets") # huggingface
+  dd
+  })
+}

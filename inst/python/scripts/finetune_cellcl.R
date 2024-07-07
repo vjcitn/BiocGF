@@ -41,7 +41,8 @@ get_Classifier = function() {
 
 
 output_prefix = "cm_classifier_test"
-output_dir = "/media/volume/boot-vol-vince_12apr/vjcoutput2"
+output_dir = "/media/volume/boot-vol-vince_12apr/vjcjul6out"
+if (!dir.exists(output_dir)) dir.create(output_dir)
 
 filter_data_dict = list(cell_type = c("Cardiomyocyte1",
           "Cardiomyocyte2", "Cardiomyocyte3"))

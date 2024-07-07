@@ -62,10 +62,20 @@ see the names of tensors of weights -- for example
 
 The Kedzierska paper includes a figshare link to a loom
 file representing quantifications of single-cell RNA-seq
-analyses of pancreas tissue @grun2016.
+analyses of pancreas tissue.  This in turn refers to the
+integration benchmarking paper of Luecken et al. @luecken,
+including the remark:
+
+```
+We reprocessed the following public datasets for our integration tasks: pancreas
+GSE81076, GSE85241, GSE86469, GSE84133, GSE81608 (Gene Expression
+Omnibus (GEO)) and E-MTAB-5061 (ArrayExpress)...
+```
 
 This code chunk uses basilisk to hand back a python
-reference.  This should be converted to SingleCellExperiment
+reference to the loom representation of this dataset provided
+by Kedzierska et al at [figshare](https://doi.org/10.6084/m9.figshare.24747228).  
+This can be converted to SingleCellExperiment
 in the chunk, before handing back to R.
 ```{r chkdat, message=FALSE}
 library(BiocGF)
@@ -77,6 +87,10 @@ pancloom = basilisk::basiliskRun(proc, function() {
 basilisk::basiliskStop(proc)
 pancloom
 ```
+
+This representation of the data is terse.  There is 
+no metadata to discriminate donor or source (e.g., the GSE or MTAB
+elements noted above).
 
 ## Tokenizing the loom RNA-seq content
 
