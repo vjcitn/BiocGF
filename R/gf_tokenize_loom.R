@@ -31,3 +31,32 @@ gf_tokenize_loom = function(loompath, output_directory = tempdir(),
   }, loompath, output_directory, output_prefix)
 }
 
+#' tokenize a h5ad file
+#' @param h5adpath character(1) path to h5ad file
+#' @param output_directory character(1) defaults to tempdir()
+#' @param output_prefix character(1) defaults to "h5adtoks"
+#' @note The python functionality calls for dirname(h5adpath).
+#' @export
+gf_tokenize_h5ad = function(h5adpath, output_directory = tempdir(),
+    output_prefix = "h5adtoks") {
+ proc = basilisk::basiliskStart(gfenv)
+ on.exit(basilisk::basiliskStop(proc))
+ basilisk::basiliskRun(proc, function(h5adpath, output_directory, output_prefix) {
+  dd = reticulate::import_from_path("geneformer", path=system.file("python", "Geneformer", package="BiocGF"))
+#
+# we want to preserve all cell metadata, so must read the h5ad
+#
+  thel = anndata::read_h5ad(h5adpath)
+  z = lapply(names(thel$obs), force)
+  names(z) = names(thel$obs)
+  cmeta = reticulate::dict(z)
+  tt = dd$tokenizer$TranscriptomeTokenizer(cmeta)
+  tt$tokenize_data(data_directory = dirname(h5adpath),
+     output_directory = output_directory,
+     output_prefix = output_prefix, file_format="h5ad")
+  ds = reticulate::import("datasets")
+  ds$load_from_disk(file.path(output_directory, paste0(output_prefix, ".",
+         "dataset")))
+  }, h5adpath, output_directory, output_prefix)
+}
+
