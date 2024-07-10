@@ -118,3 +118,14 @@ get_dsref = function() {
   dd
   })
 }
+
+#' return handle to anndata
+#' @export
+get_adref = function() {
+ proc = basilisk::basiliskStart(gfenv)
+ on.exit(basilisk::basiliskStop(proc))
+ basilisk::basiliskRun(proc, function() {
+  dd = reticulate::import("anndata") # huggingface
+  dd
+  })
+}
