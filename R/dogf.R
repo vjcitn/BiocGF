@@ -129,3 +129,32 @@ get_adref = function() {
   dd
   })
 }
+
+#' retrieve or place the model.safetensors for Geneformer (6L?) in cache, zipped
+#' @import BiocFileCache 
+#' @param cache instance of BiocFileCache::BiocFileCache()
+#' @note A README.txt is included in the zip file
+#' @return character path to zip file once cached
+#' @examples
+#' pa = get_gf_safetensors()
+#' td = tempdir()
+#' unzip(pa, exdir=td)
+#' nwts_safet(file.path(td, "GF_safetensors", "model.safetensors"))
+#' st = get_safet() # not standard, hands live python ref
+#' oo = st$safe_open(file.path(td, "GF_safetensors", "model.safetensors"), "pt")
+#' mk = oo$keys()
+#' length(mk)
+#' head(sapply(mk, function(z) oo$get_tensor(z)$shape))
+#' @export
+get_gf_safetensors = function(cache = BiocFileCache::BiocFileCache()) {
+  src = "https://mghp.osn.xsede.org/bir190004-bucket01/BiocGFdata/GF_safetensors.zip"
+  q = BiocFileCache::bfcquery(cache, "GF_safetensors.zip")
+  nans = nrow(q)
+  if (nans >= 1) {
+    q = q[nans,]
+    return(q$rpath)  # quietly return last
+    }
+  p = BiocFileCache::bfcadd(cache, rname=src,
+    action="copy", download=TRUE)
+  p
+  }

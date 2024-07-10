@@ -20,3 +20,4 @@ StagedInstall: no
 RoxygenNote: 7.3.2
 License: Artistic-2.0
 VignetteBuilder: knitr
+Encoding: UTF-8

@@ -3,6 +3,7 @@
 export(get_adref)
 export(get_dsref)
 export(get_gf_python)
+export(get_gf_safetensors)
 export(get_panc_loom_path)
 export(get_panc_tok_path)
 export(get_safet)
