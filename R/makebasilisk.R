@@ -9,6 +9,7 @@
 #>>> session_info.main.show(dependencies=True)
 #-----
 vvec = c(
+"accelerate==0.21.0",
 "datasets==2.20.0",
 "session_info==1.0.0",
 "aiohttp==3.9.5",
@@ -57,10 +58,10 @@ vvec = c(
 "sympy==1.12.1",
 "tdigest==0.5.2.2",
 "threadpoolctl==3.5.0",
-"torch==2.1.2",
+"torch==2.0.1",
 "torchgen==0.0.1",
 "tqdm==4.66.4",
-"transformers==4.42.3",
+"transformers==4.28.1",
 "typing_extensions==4.12.2",
 "urllib3==2.2.2",
 "xxhash==3.4.1",
