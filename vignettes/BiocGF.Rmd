@@ -40,30 +40,30 @@ with BiocGF.
 
 The Huggingface model card for Geneformer indicates that the model
 includes 10.3 million parameters.  Using the safetensors module we can
-see the names of tensors of weights -- for example
+see the tensors of weights.  `get_gf_safetensors` retrieves
+an image of model weights distributed in the huggingface repository
+for Geneformer.
+
+```{r lkwts, message=FALSE}
+library(BiocGF)
+pa = get_gf_safetensors()
+td = tempdir()
+unzip(pa, exdir=td)
+nwts_safet(file.path(td, "GF_safetensors", "model.safetensors"))
+st = get_safet() # not standard, hands live python ref
+oo = st$safe_open(file.path(td, "GF_safetensors", "model.safetensors"), "pt")
+mk = oo$keys()
+length(mk)
+head(sapply(mk, function(z) oo$get_tensor(z)$shape))
 ```
-> head(mkeys)
-[1] "bert.embeddings.LayerNorm.bias"              
-[2] "bert.embeddings.LayerNorm.weight"            
-[3] "bert.embeddings.position_embeddings.weight"  
-[4] "bert.embeddings.position_ids"                
-[5] "bert.embeddings.token_type_embeddings.weight"
-[6] "bert.embeddings.word_embeddings.weight"      
-> tail(mkeys)
-[1] "bert.encoder.layer.5.output.dense.weight"  
-[2] "cls.predictions.bias"                      
-[3] "cls.predictions.transform.LayerNorm.bias"  
-[4] "cls.predictions.transform.LayerNorm.weight"
-[5] "cls.predictions.transform.dense.bias"      
-[6] "cls.predictions.transform.dense.weight"    
-```
+
 
 ## A benchmark dataset
 
 The Kedzierska paper includes a figshare link to a loom
 file representing quantifications of single-cell RNA-seq
 analyses of pancreas tissue.  This in turn refers to the
-integration benchmarking paper of Luecken et al. @luecken,
+integration benchmarking paper of Luecken et al. @Luecken2022,
 including the remark:
 
 ```
@@ -116,7 +116,14 @@ print(ref)
 setwd(cur)
 ```
 
+# Session information
+
+```{r getsi}
+sessionInfo()
+```
 
 
 
 # References
+
+
