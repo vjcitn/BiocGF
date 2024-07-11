@@ -1,0 +1,36 @@
+library(TENxPBMCData)
+BiocManager::install("TENxPBMCData")
+library(TENxPBMCData)
+p68 = TENxPBMCData("pbmc68k")
+p68
+names(colData(p68))
+table(p68$Library)
+library(batchelor)
+ls(2)
+?mnnCorrect
+nn = mnnCorrect(p68, "Library")
+nn = mnnCorrect(p68, p68$Library)
+?mnnCorrect
+table(p68$Library)
+p68
+library(celldex)
+BiocManager::install("celldex")
+library(celldex)
+hpca = HumanPrimaryCellAtlasData()
+library(SingleR)
+BiocManager::install("SingleR")
+library(SingleR)
+p68
+rownames(p68) = make.names(rowData(p68$Symbol_TENx), unique=TRUE)
+rownames(p68) = make.names(rowData(p68)$Symbol_TENx, unique=TRUE)
+p68
+library(scater)
+p68 = logNormCounts(p68)
+save(p68, file="p68.rda")
+getwd()
+library(BiocParallel)
+myb = MulticoreParam(24)
+p68lab = SingleR(p68, hpca, BPPARAM=myb)
+p68lab = SingleR(p68, hpca, labels=hpca$label.main, BPPARAM=myb)
+save(p68lab, file="p68lab.rda")
+savehistory(file="lolabs.hist.txt")
