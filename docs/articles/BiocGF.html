@@ -46,7 +46,14 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.con/vjcitn/BiocGF/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -64,7 +71,7 @@
             
             <h4 data-toc-skip class="date">July 15, 2024</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.con/vjcitn/BiocGF/blob/HEAD/vignettes/BiocGF.Rmd" class="external-link"><code>vignettes/BiocGF.Rmd</code></a></small>
       <div class="hidden name"><code>BiocGF.Rmd</code></div>
 
     </div>
@@ -87,7 +94,7 @@
 </h3>
 <p>The Huggingface model card for Geneformer indicates that the model includes 10.3 million parameters. Using the safetensors module we can see the tensors of weights. <code>get_gf_safetensors</code> retrieves an image of model weights distributed in the huggingface repository for Geneformer.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BiocGF</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.con/vjcitn/BiocGF" class="external-link">BiocGF</a></span><span class="op">)</span></span>
 <span><span class="va">pa</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_gf_safetensors.html">get_gf_safetensors</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">td</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">pa</span>, exdir<span class="op">=</span><span class="va">td</span><span class="op">)</span></span>
@@ -129,7 +136,7 @@ Omnibus (GEO)) and E-MTAB-5061 (ArrayExpress)...</code></pre>
 <p>This code chunk uses basilisk to hand back a python reference to the loom representation of this dataset provided by Kedzierska et al at <a href="https://doi.org/10.6084/m9.figshare.24747228" class="external-link">figshare</a>.<br>
 This can be converted to SingleCellExperiment in the chunk, before handing back to R.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BiocGF</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.con/vjcitn/BiocGF" class="external-link">BiocGF</a></span><span class="op">)</span></span>
 <span><span class="va">panc_path</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_panc_loom_path.html">get_panc_loom_path</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">proc</span> <span class="op">=</span> <span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/basiliskStart.html" class="external-link">basiliskStart</a></span><span class="op">(</span><span class="fu">BiocGF</span><span class="fu">:::</span><span class="va">gfenv</span><span class="op">)</span></span>
 <span><span class="va">pancloom</span> <span class="op">=</span> <span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/basiliskStart.html" class="external-link">basiliskRun</a></span><span class="op">(</span><span class="va">proc</span>, <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
