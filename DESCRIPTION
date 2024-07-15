@@ -1,5 +1,5 @@
 Package: BiocGF
-Version: 0.0.2
+Version: 0.0.3
 Title: interface to geneformer, uses Msoft data
 Description: This package defines interfaces to geneformer and
 	to other components of scverse and transformers.
