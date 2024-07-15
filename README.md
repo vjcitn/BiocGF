@@ -1,9 +1,19 @@
 # BiocGF
 interface to geneformer
 
-very preliminary.  at present code in vignette just demonstrates aspects
-of tokenization.  the heart-failure example notebook code is mostly
-transcribed.  at present, confusion data on this example looks like
+This R package include a complete snapshot of Geneformer from 
+```
+https://huggingface.co/ctheodoris/Geneformer
+```
+Specifically we have not attempted to work with code
+changes after commit  fb130e.   We are grateful to the developers
+and authors of this system for their transparency in offering these resources
+underlying the Nature paper PMID 37258680, [PMC link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10949956/).
+
+These R interfaces are very preliminary.  At present code in vignette just demonstrates aspects
+of tokenization.  The heart-failure example notebook code is mostly
+transcribed into
+a function `setup_and_run_Classifier`.  At present, confusion data on this example looks like
 
 ```
 $conf_matrix
@@ -20,3 +30,9 @@ $macro_f1[[1]]
 $acc
 [1] 0.8779502
 ```
+
+See the folder inst/python/scripts for R scripts that run the heart failure
+example, fine6.R is latest incarnation.  This will use about 20GB CPU RAM and
+generate 2.2 GB of output.
+
+Thanks to NSF ACCESS allocation BIR190004 for access to GPU and storage.
